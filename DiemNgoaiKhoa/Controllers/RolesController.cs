@@ -8,13 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using DiemNgoaiKhoa.Helpers;
 using DiemNgoaiKhoa.Models;
 using System.Drawing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DiemNgoaiKhoa.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private readonly DataContext _context;
 
+        
         public RolesController(DataContext context)
         {
             _context = context;

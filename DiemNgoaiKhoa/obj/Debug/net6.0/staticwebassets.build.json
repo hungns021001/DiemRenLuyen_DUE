@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FbwNLeT8v7E8yPjZVgH6IeFiYjZV3cPP32qJY79fJQc=",
+  "Hash": "haTWQUZmivgNWCJ6xPwlD21J4Haw61bgwBUhx2506oM=",
   "Source": "DiemNgoaiKhoa",
   "BasePath": "_content/DiemNgoaiKhoa",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\DUE\\TTTN\\DiemRenLuyen_DUE\\DiemNgoaiKhoa\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\DiemNgoaiKhoa.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\DUE\\TTTN\\DiemRenLuyen_DUE\\DiemNgoaiKhoa\\wwwroot\\css\\login.css",
+      "SourceId": "DiemNgoaiKhoa",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DUE\\TTTN\\DiemRenLuyen_DUE\\DiemNgoaiKhoa\\wwwroot\\",
+      "BasePath": "_content/DiemNgoaiKhoa",
+      "RelativePath": "css/login.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\login.css"
     },
     {
       "Identity": "D:\\DUE\\TTTN\\DiemRenLuyen_DUE\\DiemNgoaiKhoa\\wwwroot\\css\\site.css",

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\DiemNgoaiKhoa.bundle.scp.css"
     },
     {
+      "Id": "D:\\DUE\\TTTN\\DiemRenLuyen_DUE\\DiemNgoaiKhoa\\wwwroot\\css\\login.css",
+      "PackagePath": "staticwebassets\\css\\login.css"
+    },
+    {
       "Id": "D:\\DUE\\TTTN\\DiemRenLuyen_DUE\\DiemNgoaiKhoa\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
