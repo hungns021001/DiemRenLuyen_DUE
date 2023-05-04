@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace DiemNgoaiKhoa.Controllers
 {
-    [Authorize(Roles ="admin, sinh viên")]
+    [Authorize]
 
     public class StudentsController : Controller
     {
@@ -31,11 +31,16 @@ namespace DiemNgoaiKhoa.Controllers
 
             var username = identity.FindFirst(ClaimTypes.Name)?.Value;
             var role = identity.FindFirst(ClaimTypes.Role)?.Value;
+            var giangvien = _context.Classes.Where(a => a.Lecturer.Account.Username == username).FirstOrDefault();
 
             if (role == "admin")
             {
                 return View(await _context.Students.Include(l => l.Account).Include(l => l.Gender).ToListAsync());
             }
+            else if(role =="giảng viên")
+            {
+                return View(await _context.Students.Include(l => l.Account).Include(l => l.Gender).Where(a => a.ClassId == giangvien.Id).ToListAsync());
+            }    
             else
             {
                 return View(await _context.Students.Include(l => l.Account).Include(l => l.Gender).Where(a => a.Account.Username == username).ToListAsync());
