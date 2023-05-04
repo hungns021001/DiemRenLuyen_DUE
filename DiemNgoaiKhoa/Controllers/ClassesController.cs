@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DiemNgoaiKhoa.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class ClassesController : Controller
     {
         private readonly DataContext _context;
@@ -62,7 +62,9 @@ namespace DiemNgoaiKhoa.Controllers
         public async Task<IActionResult> Create(ClassRequest request)
         {
             Class @class = new Class();
-            if (ModelState.IsValid)
+            var exist = await _context.Classes.AnyAsync(a=>a.Name == request.Name);
+
+            if (ModelState.IsValid && !exist)
             {
                 @class.Name = request.Name;
                 @class.LecturerId = request.LecturerId;
@@ -104,12 +106,14 @@ namespace DiemNgoaiKhoa.Controllers
         public async Task<IActionResult> Edit(int id, ClassRequest request)
         {
             Class @class = await this.GetById(id);
+            var exist = await _context.Classes.AnyAsync(a => a.Name == request.Name);
+
             if (id != @class.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && exist)
             {
                 try
                 {

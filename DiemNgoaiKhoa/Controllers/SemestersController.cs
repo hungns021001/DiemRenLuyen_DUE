@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DiemNgoaiKhoa.Helpers;
 using DiemNgoaiKhoa.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DiemNgoaiKhoa.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class SemestersController : Controller
     {
         private readonly DataContext _context;

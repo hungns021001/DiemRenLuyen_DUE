@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DiemNgoaiKhoa.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class RolesController : Controller
     {
         private readonly DataContext _context;

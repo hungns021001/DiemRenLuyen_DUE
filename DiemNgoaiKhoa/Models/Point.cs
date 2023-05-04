@@ -21,9 +21,9 @@ namespace DiemNgoaiKhoa.Models
 
         public int PointStudent { get; set; }
 
-        public int PointMonitor { get; set;}
+        public int? PointMonitor { get; set;}
 
-        public int PointLecturer { get; set; }
+        public int? PointLecturer { get; set; }
 
     }
 

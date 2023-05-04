@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -39,20 +39,20 @@ namespace DiemNgoaiKhoa.Controllers
                 if(user == null){
                     return Json(new {
                         Success = false,
-                        Data = "Username or Password is incorrect!"
+                        Data = "Tài khoản hoặc mật khẩu không đúng!"
                     });
                 }
                 var role = _context.Role.Where(x => x.Id == user.RoleId).FirstOrDefault();
                 if(role == null){
                     return Json(new {
                         Success = false,
-                        Data = "Role is incorrect!"
+                        Data = "Role không hợp lệ!"
                     });
                 }
                 await HttpContext.SignInAsync(user,role);
                 return Json(new {
                     Success = true,
-                    Data = "Login Success!"
+                    Data = "Đăng nhập thành công!"
                 });
 
             }

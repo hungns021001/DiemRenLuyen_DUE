@@ -556,3 +556,16 @@ D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\obj\Debug\net6.0\refint\DiemNgoaiKhoa
 D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\obj\Debug\net6.0\DiemNgoaiKhoa.pdb
 D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\obj\Debug\net6.0\DiemNgoaiKhoa.genruntimeconfig.cache
 D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\obj\Debug\net6.0\ref\DiemNgoaiKhoa.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\ServiceStack.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\ServiceStack.Api.Swagger.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\ServiceStack.Client.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\ServiceStack.Common.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\ServiceStack.Interfaces.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\ServiceStack.Text.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\System.Private.ServiceModel.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\System.ServiceModel.Primitives.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\System.ServiceModel.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\DUE\TTTN\DiemRenLuyen_DUE\DiemNgoaiKhoa\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

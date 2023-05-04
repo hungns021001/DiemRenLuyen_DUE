@@ -7,9 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DiemNgoaiKhoa.Helpers;
 using DiemNgoaiKhoa.Models;
+using Microsoft.AspNetCore.Authorization;
+using ServiceStack;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using System.Collections;
 
 namespace DiemNgoaiKhoa.Controllers
 {
+    [Authorize]
     public class AccountsController : Controller
     {
         private readonly DataContext _context;
@@ -22,8 +28,21 @@ namespace DiemNgoaiKhoa.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Accounts.Include(a => a.Roles);
-            return View(await dataContext.ToListAsync());
+            var user = HttpContext.User;
+            var identity = user.Identity as ClaimsIdentity;
+
+            var username = identity.FindFirst(ClaimTypes.Name)?.Value;
+            var role = identity.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role == "admin")
+            {
+                return View(await _context.Accounts.Include(a => a.Roles).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Accounts.Include(a => a.Roles).Where(a => a.Username == username).ToListAsync());
+            }
+            //return View(await dataContext.ToListAsync());
         }
 
         // GET: Accounts/Details/5
@@ -57,10 +76,12 @@ namespace DiemNgoaiKhoa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(AccountRequest request)
         {
             Account account = new Account();
-            if (ModelState.IsValid)
+            var exist = await _context.Accounts.AnyAsync(a=>a.Username== request.Username);
+            if (ModelState.IsValid && !exist)
             {
                 account.Username = request.Username;
                 account.Password = request.Password;
@@ -102,6 +123,12 @@ namespace DiemNgoaiKhoa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, AccountRequest request)
         {
+            var user = HttpContext.User;
+            var identity = user.Identity as ClaimsIdentity;
+
+            var username = identity.FindFirst(ClaimTypes.Name)?.Value;
+            var role = identity.FindFirst(ClaimTypes.Role)?.Value;
+
             Account account = await this.GetById(id);
             if (id != account.Id)
             {
@@ -113,7 +140,10 @@ namespace DiemNgoaiKhoa.Controllers
                 try
                 {
                     account.Password = request.Password;
-                    account.RoleId = request.RoleId;   
+                    if(role == "admin")
+                    {
+                        account.RoleId = request.RoleId;
+                    }
                     _context.Update(account);
                     await _context.SaveChangesAsync();
                 }
@@ -156,6 +186,7 @@ namespace DiemNgoaiKhoa.Controllers
         // POST: Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Accounts == null)

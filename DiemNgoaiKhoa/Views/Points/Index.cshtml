@@ -1,34 +1,61 @@
 ﻿@model IEnumerable<DiemNgoaiKhoa.Models.Point>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm mới</a>
+</p>
+<p>
+    <!-- 1. Đoạn cần thêm -->
+    @using (Html.BeginForm("Index", "Points", FormMethod.Get))
+    {
+        <div class="row"> 
+            <div class="col-lg-12">
+                <div class="col-md-4">
+                    @Html.DropDownList("classes",(IEnumerable<SelectListItem>) ViewData["ClassId"])
+                    @Html.DropDownList("student",(IEnumerable<SelectListItem>) ViewData["StudentId"])
+                    @Html.DropDownList("semester",(IEnumerable<SelectListItem>) ViewData["SemesterId"])
+                    <p hidden>@Html.DropDownList("semester",(IEnumerable<SelectListItem>) ViewData["PointFrameId"])</p>
+                    <p hidden>@Html.DropDownList("item",(IEnumerable<SelectListItem>) ViewData["ItemId"])</p>
+                    <p hidden>@Html.DropDownList("itemdetail",(IEnumerable<SelectListItem>) ViewData["ItemDetailId"])</p>
+                        <div class="col-md-4">
+                            <input type="submit" value="Tìm kiếm" class="btn btn-primary" />
+                        </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!-- Kết thúc -->
+
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Student)
+               Tên học sinh
+            </th>
+            <th>Lớp</th>
+            <th>
+                Học kỳ
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Semester)
+                Mục
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PointFrame)
+                Tiêu chí
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PointStudent)
+               Nội dung
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PointMonitor)
+                Điểm tối đa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PointLecturer)
+                Điểm học sinh
+            </th>
+            <th>
+                Điểm lớp trưởng
+            </th>
+            <th>
+                Điểm giảng viên
             </th>
             <th></th>
         </tr>
@@ -39,12 +66,24 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Student.Fullname)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Class.Name)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Semester.Name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.PointFrame.ItemDetail.Item.Name)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PointFrame.ItemDetail.Name)
+                </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PointFrame.Name)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PointFrame.MaxPoint)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PointStudent)
             </td>
@@ -55,9 +94,9 @@
                 @Html.DisplayFor(modelItem => item.PointLecturer)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Cập nhật</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Thông tin chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Xóa</a>
             </td>
         </tr>
 }

@@ -7,9 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DiemNgoaiKhoa.Helpers;
 using DiemNgoaiKhoa.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace DiemNgoaiKhoa.Controllers
 {
+    [Authorize(Roles ="admin, sinh viên")]
+
     public class StudentsController : Controller
     {
         private readonly DataContext _context;
@@ -22,8 +26,20 @@ namespace DiemNgoaiKhoa.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Students.Include(s => s.Account).Include(s => s.Class).Include(s => s.Gender);
-            return View(await dataContext.ToListAsync());
+            var user = HttpContext.User;
+            var identity = user.Identity as ClaimsIdentity;
+
+            var username = identity.FindFirst(ClaimTypes.Name)?.Value;
+            var role = identity.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (role == "admin")
+            {
+                return View(await _context.Students.Include(l => l.Account).Include(l => l.Gender).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Students.Include(l => l.Account).Include(l => l.Gender).Where(a => a.Account.Username == username).ToListAsync());
+            }
         }
 
         // GET: Students/Details/5
@@ -61,10 +77,18 @@ namespace DiemNgoaiKhoa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create(StudentRequest request)
         {
+            var user = HttpContext.User;
+            var identity = user.Identity as ClaimsIdentity;
+
+            var username = identity.FindFirst(ClaimTypes.Name)?.Value;
+
             Student student = new Student();
-            if (ModelState.IsValid)
+
+            var exist = await _context.Students.AnyAsync(a => a.AccountId == request.AccountId);
+            if (ModelState.IsValid && !exist)
             {
                 student.Fullname = request.Fullname;
                 student.Birthday = request.Birthday;
@@ -77,7 +101,7 @@ namespace DiemNgoaiKhoa.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Username", student.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a=>a.Roles.Name == "sinh viên"), "Id", "Username", student.AccountId);
             ViewData["ClassId"] = new SelectList(_context.Classes, "Id", "Name", student.ClassId);
             ViewData["GenderId"] = new SelectList(_context.Genders, "Id", "Name", student.GenderId);
             return View(student);
@@ -115,7 +139,9 @@ namespace DiemNgoaiKhoa.Controllers
         public async Task<IActionResult> Edit(int id, StudentRequest request)
         {
             Student student = await this.GetById(id);
-            if (id != student.Id)
+            var exist = await _context.Students.AnyAsync(a => a.AccountId == request.AccountId);
+
+            if (id != student.Id && !exist)
             {
                 return NotFound();
             }
@@ -129,8 +155,8 @@ namespace DiemNgoaiKhoa.Controllers
                     student.GenderId = request.GenderId;
                     student.Phone = request.Phone;
                     student.Address = request.Address;
-                    student.ClassId = request.ClassId;
-                    student.AccountId = request.AccountId;
+                   // student.ClassId = request.ClassId;
+                   // student.AccountId = request.AccountId;
                     _context.Update(student);
                     await _context.SaveChangesAsync();
                 }
@@ -177,6 +203,7 @@ namespace DiemNgoaiKhoa.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Students == null)

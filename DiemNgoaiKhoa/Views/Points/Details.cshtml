@@ -4,51 +4,50 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Thông tin chi tiết</h1>
 
 <div>
-    <h4>Point</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Student)
+        <dt class="col-sm-2">
+            Họ và tên:
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Student.Address)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Student.Fullname)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Semester)
+        <dt class="col-sm-2">
+            Học kỳ:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Semester.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PointFrame)
+        <dt class="col-sm-2">
+            Tiêu chí và nội dung:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PointFrame.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PointStudent)
+        <dt class="col-sm-2">
+            Điểm sinh viên
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PointStudent)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PointMonitor)
+        <dt class="col-sm-2">
+            Điểm lướp trưởng:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PointMonitor)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PointLecturer)
+        <dt class="col-sm-2">
+            Điểm giảng viên:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PointLecturer)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Cập nhật</a> |
+    <a asp-action="Index">Quay lại</a>
 </div>

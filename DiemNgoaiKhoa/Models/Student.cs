@@ -36,6 +36,8 @@ namespace DiemNgoaiKhoa.Models
 
     public class StudentRequest
     {
+        public int Id { get; set; }
+
         public string Fullname { get; set; }
 
         public DateTime Birthday { get; set; }
@@ -50,5 +52,22 @@ namespace DiemNgoaiKhoa.Models
 
         public int AccountId { get; set; }
 
+    }
+
+    public class StudentPoint
+    {
+        public int Id { get; set; }
+
+        public string Fullname { get; set; }
+
+        public Class Class { get; set; }
+
+        public Semester Semester { get; set; }
+
+        public int PointStudent { get; set; }
+
+        public int PointMonitor { get; set; }
+
+        public int PointLecturer { get; set; }
     }
 }

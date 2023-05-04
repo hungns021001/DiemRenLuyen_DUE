@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DiemNgoaiKhoa.Helpers;
 using DiemNgoaiKhoa.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace DiemNgoaiKhoa.Controllers
 {
+    [Authorize(Roles = "admin,giảng viên")]
     public class LecturersController : Controller
     {
         private readonly DataContext _context;
@@ -22,8 +25,21 @@ namespace DiemNgoaiKhoa.Controllers
         // GET: Lecturers
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Lecturer.Include(l => l.Account).Include(l => l.Gender);
-            return View(await dataContext.ToListAsync());
+            var user = HttpContext.User;
+            var identity = user.Identity as ClaimsIdentity;
+
+            var username = identity.FindFirst(ClaimTypes.Name)?.Value;
+            var role = identity.FindFirst(ClaimTypes.Role)?.Value;
+            
+            if(role == "admin")
+            {
+                return View(await _context.Lecturer.Include(l => l.Account).Include(l => l.Gender).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Lecturer.Include(l => l.Account).Include(l => l.Gender).Where(a=>a.Account.Username == username).ToListAsync());
+            }
+
         }
 
         // GET: Lecturers/Details/5
@@ -59,10 +75,17 @@ namespace DiemNgoaiKhoa.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(LecturerRequest request)
         {
+            var user = HttpContext.User;
+            var identity = user.Identity as ClaimsIdentity;
+
+            var username = identity.FindFirst(ClaimTypes.Name)?.Value;
+
             Lecturer lecturer = new Lecturer();
-            if (ModelState.IsValid)
+            var exist = await _context.Lecturer.AnyAsync(a=>a.AccountId == request.AccountId);
+            if (ModelState.IsValid && !exist)
             {
                 lecturer.Fullname = request.Fullname;
                 lecturer.Birthday = request.Birthday;
@@ -74,7 +97,7 @@ namespace DiemNgoaiKhoa.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Username", lecturer.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts.Where(a=> a.RoleId == 2 ), "Id", "Username", lecturer.AccountId);
             ViewData["GenderId"] = new SelectList(_context.Genders, "Id", "Name", lecturer.GenderId);
             return View(lecturer);
         }
@@ -110,7 +133,9 @@ namespace DiemNgoaiKhoa.Controllers
         public async Task<IActionResult> Edit(int id, LecturerRequest request)
         {
             Lecturer lecturer = await this.GetById(id);
-            if (id != lecturer.Id)
+            var exist = await _context.Lecturer.AnyAsync(a => a.AccountId == request.AccountId);
+
+            if (id != lecturer.Id || exist)
             {
                 return NotFound();
             }
@@ -124,7 +149,7 @@ namespace DiemNgoaiKhoa.Controllers
                     lecturer.Address = request.Address;
                     lecturer.Phone = request.Phone;
                     lecturer.GenderId = request.GenderId;
-                    lecturer.AccountId = request.AccountId;
+                    //lecturer.AccountId = request.AccountId;
                     _context.Update(lecturer);
                     await _context.SaveChangesAsync();
                 }
