@@ -4,31 +4,29 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm mới</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Fullname)
+                Họ và tên:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Birthday)
+                Ngày sinh:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                Giới tính:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Số điện thoại:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                Địa chỉ:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Account)
+                Tài khoản:
             </th>
             <th></th>
         </tr>
@@ -55,9 +53,9 @@
                 @Html.DisplayFor(modelItem => item.Account.Username)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Cập nhật</a> |
+                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                <a asp-action="Delete" asp-route-id="@item.Id">Xóa</a>
             </td>
         </tr>
 }

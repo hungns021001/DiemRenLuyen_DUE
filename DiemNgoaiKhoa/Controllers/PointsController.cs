@@ -42,7 +42,7 @@ namespace DiemNgoaiKhoa.Controllers
             if (role == "sinh viên")
             {
                 ViewData["StudentId"] = new SelectList(_context.Students.Where(a => a.Account.Username == username), "Id", "Fullname");
-                ViewData["ClassId"] = new SelectList(_context.Classes, "Id", "Name");
+                ViewData["ClassId"] = new SelectList(_context.Classes.Where(a=>a.Id == lopt.ClassId), "Id", "Name");
             }
             else if (role == "giảng viên")
             {
@@ -267,7 +267,7 @@ namespace DiemNgoaiKhoa.Controllers
                 try
                 {
                     //point.StudentId = request.StudentId;
-                    if (role == "sinh viên" || role == "lớp trưởng" || role == "admin")
+                    if (role == "sinh viên" /*|| role == "lớp trưởng" || role == "admin"*/)
                     {
                         if (0 <= request.PointStudent && request.PointStudent <= max.MaxPoint)
                         {
@@ -275,7 +275,7 @@ namespace DiemNgoaiKhoa.Controllers
                         }
                     }
                     //point.SemesterId = request.SemesterId;
-                    else if (role == "lớp trưởng" || role == "admin")
+                    else if (role == "lớp trưởng" /*|| role == "admin"*/)
                     {
                         if (0 <= request.PointMonitor && request.PointMonitor <= max.MaxPoint)
                         {

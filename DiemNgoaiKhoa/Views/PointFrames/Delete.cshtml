@@ -4,27 +4,25 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn chắc chắn muốn xóa dữ liệu??</h3>
 <div>
-    <h4>PointFrame</h4>
+    <h4>Khung điểm</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ItemDetail)
+            Mục:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ItemDetail.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            Nội dung và tiêu chí:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxPoint)
+            Điểm tối đa
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.MaxPoint)
@@ -33,7 +31,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index">Quay lại</a>
     </form>
 </div>

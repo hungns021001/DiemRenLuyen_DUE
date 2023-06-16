@@ -33,6 +33,8 @@ namespace DiemNgoaiKhoa.Controllers
             var role = identity.FindFirst(ClaimTypes.Role)?.Value;
             var giangvien = _context.Classes.Where(a => a.Lecturer.Account.Username == username).FirstOrDefault();
 
+            ViewData["ClassId"] = new SelectList(_context.Classes.Where(a => a.Lecturer.Account.Username == username), "Id", "Name");
+
             if (role == "admin")
             {
                 return View(await _context.Students.Include(l => l.Account).Include(l => l.Gender).ToListAsync());
@@ -40,7 +42,7 @@ namespace DiemNgoaiKhoa.Controllers
             else if(role =="giảng viên")
             {
                 return View(await _context.Students.Include(l => l.Account).Include(l => l.Gender).Where(a => a.ClassId == giangvien.Id).ToListAsync());
-            }    
+            }
             else
             {
                 return View(await _context.Students.Include(l => l.Account).Include(l => l.Gender).Where(a => a.Account.Username == username).ToListAsync());

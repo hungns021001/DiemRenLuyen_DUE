@@ -4,22 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm mới</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ItemDetail)
+                Mục
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+               Nội dung và tiêu chí
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxPoint)
+                Điểm tối đa
             </th>
             <th></th>
         </tr>
@@ -37,9 +35,9 @@
                 @Html.DisplayFor(modelItem => item.MaxPoint)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Cập nhật</a> |
+                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                <a asp-action="Delete" asp-route-id="@item.Id">Xóa</a>
             </td>
         </tr>
 }
